@@ -8,6 +8,10 @@ import { RxCross2 } from "react-icons/rx";
 import { Switch } from "../ui/switch";
 import { useUpdateStatusUser } from "@/hooks/query-users/useUpdateStatusUser";
 import { User } from "@/types/user.type";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { Button } from "../ui/button";
+import { GrDisabledOutline } from "react-icons/gr";
+import { useUserStore } from "@/store/useUserStore";
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -44,13 +48,40 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "role",
     header: "role",
+    cell: ({ cell, row }) => {
+      const { role } = row.original;
+      return (
+        <>
+          {role.includes("ADMIN") ? (
+            <MdOutlineAdminPanelSettings size={30} />
+          ) : (
+            role
+          )}
+        </>
+      );
+    },
   },
   {
     accessorKey: "",
     header: "actions",
     cell: ({ cell, row }) => {
-      const { _id } = row.original;
-      return <Actions />;
+      const { _id, role, email } = row.original;
+      const { setModalDelete } = useUserStore();
+
+      return !role.includes("ADMIN") ? (
+        <Actions
+          setModalDelete={setModalDelete}
+          _id={_id}
+          name={email}
+          link_update={`/admin/users/${_id}`}
+        />
+      ) : (
+        <Button variant={"ghost"} disabled={true} size={"icon"}>
+          <GrDisabledOutline />
+        </Button>
+      );
     },
   },
+  
+  
 ];

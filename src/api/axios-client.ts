@@ -1,32 +1,40 @@
-import { Config } from "./../../node_modules/tailwind-merge/src/lib/types";
 import { LocalUtils } from "@/utils/local-utils";
-import { config } from "process";
 import axios from "axios";
 
-const axiosClient = axios.create({
-  headers: {
-    "Content-Type": "application/json",
-  },
-  baseURL: "http://localhost:3000/",
-});
+const axiosClient = (redirect: boolean = false) => {
+  const configAxios = axios.create({
+    headers: {
+      "Content-Type": "application/json",
+    },
+    baseURL: "http://localhost:3000/",
+  });
 
-axiosClient.interceptors.request.use((config) => {
-  const local = LocalUtils.getLocalToken();
+  configAxios.interceptors.request.use((config) => {
+    const local = LocalUtils.getLocalToken();
 
-  if (local && !config.headers.Authorization) {
-    config.headers.Authorization = `Bearer ${local}`;
-  }
+    if (local && !config.headers.Authorization) {
+      config.headers.Authorization = `Bearer ${local}`;
+    }
 
-  return config;
-});
+    return config;
+  });
 
-axiosClient.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  async (error) => {
-    throw error.response.data;
-  }
-);
+  configAxios.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    async (error) => {
+      if (error.response.status === 401) {
+        LocalUtils.removeLocalToken();
+        if (redirect) {
+          window.location.href = "/admin/login";
+        }
+      }
+      return Promise.reject(error.response.data);
+    }
+  );
+
+  return configAxios;
+};
 
 export default axiosClient;
