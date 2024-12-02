@@ -5,39 +5,45 @@ import { useNavigate } from "react-router-dom";
 import { TbCategoryFilled } from "react-icons/tb";
 import logo from "@/assets/logo.png";
 import { FaUsers } from "react-icons/fa6";
-import { CiBag1 } from "react-icons/ci";
+import { AiFillFileText } from "react-icons/ai";
+import { BiLogoBlogger } from "react-icons/bi";
 
 const menuItems = [
   {
-    title: "Home",
+    title: "Trang chủ",
     icon: <HomeIcon className="h-5 w-5" />,
     link: "/admin",
   },
   {
-    title: "Users",
+    title: "Người dùng",
     icon: <MdManageAccounts className="h-5 w-5" />,
     link: "/admin/users",
   },
   {
-    title: "Categories",
+    title: "Danh mục",
     icon: <TbCategoryFilled className="h-5 w-5" />,
     link: "/admin/categories",
   },
   {
-    title: "Products",
+    title: "Sản phẩm",
     icon: <GiConverseShoe className="h-5 w-5 text-zinc-950" />,
     link: "/admin/products",
   },
   {
-    title: "Customers",
+    title: "Khách hàng",
     icon: <FaUsers className="h-5 w-5" />,
     link: "/admin/customers",
   },
   {
-    title: "Orders",
-    icon: <CiBag1 className="h-5 w-5" />,
+    title: "Đơn hàng",
+    icon: <AiFillFileText className="h-5 w-5" />,
     link: "/admin/orders",
-  }
+  },
+  {
+    title: "Bài viết",
+    icon: <BiLogoBlogger className="h-5 w-5" />,
+    link: "/admin/blogs",
+  },
 ];
 
 function SideBar() {
@@ -47,9 +53,9 @@ function SideBar() {
     <div className="min-h-screen bg-gradient-to-b from-blue-600 via-purple-600 to-indigo-900 w-[240px] shadow-lg">
       {/* Logo Section */}
       <div className="p-6">
-        <img 
-          src={logo} 
-          alt="Logo" 
+        <img
+          src={logo}
+          alt="Logo"
           className="rounded-full object-cover w-32 h-32 mx-auto border-4 border-gray-700 shadow-md"
         />
       </div>

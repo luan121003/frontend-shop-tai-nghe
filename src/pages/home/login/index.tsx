@@ -36,13 +36,27 @@ const LoginHomePage = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-200 to-blue-400">
-      <div className="w-full max-w-lg bg-white rounded-3xl shadow-lg p-10">
+    <div
+      className="relative flex items-center justify-center min-h-screen bg-gradient-to-r"
+      style={{
+        backgroundImage:
+          "url('https://www.elleman.vn/app/uploads/2018/08/13/gi%C3%A0y-sneakers-2-elle-man-8.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* Lớp phủ mờ */}
+      <div className="absolute inset-0 bg-black bg-opacity-40 backdrop-blur-sm"></div>
+
+      {/* Hộp đăng nhập */}
+      <div className="relative w-full max-w-lg bg-white bg-opacity-90 backdrop-blur-lg rounded-3xl shadow-lg p-10">
         <h2 className="text-4xl font-bold text-center text-gray-800">
           Đăng Nhập
         </h2>
         <p className="text-center text-gray-600 mb-8">
-          <br />Chào mừng trở lại!<br /> Vui lòng đăng nhập tài khoản của bạn
+          <br />
+          Chào mừng trở lại!
+          <br /> Vui lòng đăng nhập tài khoản của bạn
         </p>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-6">
@@ -82,9 +96,7 @@ const LoginHomePage = () => {
                 </FormItem>
               )}
             />
-            <Button
-              className="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow-lg hover:shadow-xl transform transition-all duration-200 ease-in-out hover:scale-105"
-            >
+            <Button className="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow-lg hover:shadow-xl transform transition-all duration-200 ease-in-out hover:scale-105">
               Đăng Nhập
             </Button>
           </form>
@@ -94,7 +106,10 @@ const LoginHomePage = () => {
             <Link to="/register" className="text-blue-500 hover:underline">
               Đăng ký
             </Link>
-            <Link to={"/forgot-password"} className="text-blue-500 hover:underline">
+            <Link
+              to={"/forgot-password"}
+              className="text-blue-500 hover:underline"
+            >
               Quên mật khẩu?
             </Link>
           </div>

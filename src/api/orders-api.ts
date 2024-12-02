@@ -14,4 +14,8 @@ export const ordersApi = {
     const url = `/orders/${_id}`;
     return axiosClient(false).get(url);
   },
+  updateStatus(_id: string, status: boolean) {
+    const url = `/orders/${_id}/status`;
+    return axiosClient(false).put(url, {}, { params: { status } });
+  },
 };

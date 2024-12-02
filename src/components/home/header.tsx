@@ -14,14 +14,16 @@ import { IoIosInformationCircleOutline } from "react-icons/io";
 import { useGetMeCustomer } from "@/hooks/query-customers/useGetMeCustomer";
 import useToastMessage from "@/hooks/userToastMessgases";
 import logo from "@/assets/logo.png";
-import { FaUserPlus, FaSignInAlt } from "react-icons/fa";
-import { FaUserAlt } from "react-icons/fa";
-import { FaShoppingBag } from "react-icons/fa";
+import {
+  FaUserPlus,
+  FaSignInAlt,
+  FaUserAlt,
+  FaShoppingBag,
+} from "react-icons/fa";
 
 const Header = () => {
   const { data } = useGetMeCustomer();
   const navigate = useNavigate();
-
   const { toastSuccess } = useToastMessage();
 
   const handleLogout = () => {
@@ -31,47 +33,44 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-gradient-to-r from-green-200 via-blue-200 to-purple-200 text-gray-900 shadow-lg">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <div className="text-3xl font-bold tracking-wide">
+    <header className="bg-gradient-to-br from-blue-200 to-blue-500 text-white shadow-lg py-4">
+      <div className="container mx-auto flex justify-between items-center px-6">
+        {/* Logo */}
+        <div className="text-xl font-bold flex items-center space-x-3">
           <img
             src={logo}
             alt="Logo"
-            className="rounded-full object-cover w-28 h-28 mx-auto border-4 border-gray-300 shadow-md"
+            style={{ width: "100px", height: "100px" }}
+            className="rounded-full object-cover border-2 border-white"
           />
         </div>
 
-        <nav className="hidden md:flex space-x-6">
-          <Link to={"/"}>
-            <Button variant={"ghost"} className="text-lg hover:text-blue-400 transition duration-300 ease-in-out">
-              Trang chủ
-            </Button>
-          </Link>
-          <Link to={"/"}>
-            <Button variant={"ghost"} className="text-lg hover:text-blue-400 transition duration-300 ease-in-out">
-              Giới thiệu
-            </Button>
-          </Link>
-          <Link to={"/products"}>
-            <Button variant={"ghost"} className="text-lg hover:text-blue-400 transition duration-300 ease-in-out">
-              Sản phẩm
-            </Button>
-          </Link>
-          <Link to={"/"}>
-            <Button variant={"ghost"} className="text-lg hover:text-blue-400 transition duration-300 ease-in-out">
-              Dịch vụ
-            </Button>
-          </Link>
-          <Link to={"/"}>
-            <Button variant={"ghost"} className="text-lg hover:text-blue-400 transition duration-300 ease-in-out">
-              Liên hệ
-            </Button>
-          </Link>
+        {/* Navigation Links */}
+        {/* Navigation Links */}
+        <nav className="hidden md:flex justify-evenly space-x-6 w-full max-w-3xl mx-auto">
+          {[
+            { path: "/", label: "Trang chủ" },
+            { path: "/about", label: "Giới thiệu" },
+            { path: "/products", label: "Sản phẩm" },
+            { path: "/services", label: "Dịch vụ" },
+            { path: "/blogs", label: "Bài viết" },
+            { path: "/contact", label: "Liên hệ" },
+          ].map((link) => (
+            <Link key={link.path} to={link.path} className="flex-1">
+              <span className="block text-center text-lg font-medium hover:text-yellow-300 transition duration-300">
+                {link.label}
+              </span>
+            </Link>
+          ))}
         </nav>
 
-        <div className="hidden md:flex items-center space-x-4">
+        {/* User Actions */}
+        <div className="flex items-center space-x-4">
           <Link to={"/cart"}>
-            <Button size={"icon"} className="bg-blue-300 text-gray-700 hover:bg-blue-100 transition duration-300 ease-in-out">
+            <Button
+              size={"icon"}
+              className="bg-yellow-400 text-gray-800 hover:bg-yellow-300 transition transform hover:scale-110"
+            >
               <FaShoppingBag className="w-6 h-6" />
             </Button>
           </Link>
@@ -79,39 +78,45 @@ const Header = () => {
           {data ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-10 w-10 rounded-full bg-white">
-                  <Avatar className="h-10 w-10 border-2 border-blue-200">
-                    <AvatarFallback className="text-gray-700">
+                <Button
+                  variant="ghost"
+                  className="relative h-12 w-12 rounded-full bg-white"
+                >
+                  <Avatar className="h-12 w-12 border-2 border-gray-300">
+                    <AvatarFallback className="text-gray-800">
                       <FaUserAlt />
                     </AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" forceMount className="bg-white text-gray-800 shadow-xl">
+              <DropdownMenuContent
+                align="end"
+                className="bg-white text-gray-800 shadow-lg rounded-lg"
+              >
                 <DropdownMenuItem onClick={() => navigate("/profile")}>
-                  <IoIosInformationCircleOutline className="mr-2 h-5 w-5 text-blue-500" />
+                  <IoIosInformationCircleOutline className="mr-3 h-6 w-6 text-blue-600" />
                   <span>Thông tin</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleLogout}>
-                  <IoLogOutOutline className="mr-2 h-5 w-5 text-red-500" />
+                  <IoLogOutOutline className="mr-3 h-6 w-6 text-red-600" />
                   <span>Đăng xuất</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
             <>
-             <Link to={"/register"}>
-  <Button className="bg-blue-300 text-black hover:bg-blue-400 transition duration-300 ease-in-out flex items-center shadow-lg transform hover:scale-105">
-    <FaUserPlus className="mr-2" />
-    Đăng Ký
-  </Button>
-</Link>
-<Link to={"/login"}>
-  <Button className="bg-blue-300 text-black hover:bg-blue-400 transition duration-300 ease-in-out flex items-center shadow-lg transform hover:scale-105">
-    <FaSignInAlt className="mr-2" />
-    Đăng Nhập
-  </Button>
-</Link>
+              <Link to={"/register"}>
+                <Button className="bg-yellow-400 text-black hover:bg-yellow-300 transition transform hover:scale-110 flex items-center shadow-md px-4 py-2">
+                  <FaUserPlus className="mr-2" />
+                  Đăng Ký
+                </Button>
+              </Link>
+              <Link to={"/login"}>
+                <Button className="bg-yellow-400 text-black hover:bg-yellow-300 transition transform hover:scale-110 flex items-center shadow-md px-4 py-2">
+                  <FaSignInAlt className="mr-2" />
+                  Đăng Nhập
+                </Button>
+              </Link>
             </>
           )}
         </div>

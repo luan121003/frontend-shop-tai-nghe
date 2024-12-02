@@ -12,6 +12,7 @@ export type Order = {
   shipping_cost: number;
   order_detail: OrderDetail[];
   created_at: Date;
+  status: boolean;
 };
 
 export type OrderDetail = {

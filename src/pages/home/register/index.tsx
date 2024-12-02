@@ -34,8 +34,18 @@ function RegisterPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-100 to-green-100">
-      <div className="w-full max-w-lg bg-white rounded-2xl shadow-lg p-8">
+    <div className="flex items-center justify-center min-h-screen relative">
+      {/* Lớp nền */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage:
+            "url('https://www.elleman.vn/app/uploads/2018/08/13/gi%C3%A0y-sneakers-2-elle-man-8.jpg')",
+        }}
+      />
+      {/* Lớp phủ mờ */}
+      <div className="absolute inset-0 bg-black opacity-20" />
+      <div className="w-full max-w-lg bg-white rounded-2xl shadow-lg p-8 relative z-10">
         <h2 className="text-3xl font-bold text-center text-gray-800">
           Đăng Ký
         </h2>
@@ -43,7 +53,10 @@ function RegisterPage() {
           Vui lòng điền thông tin để tạo tài khoản
         </p>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleRegister)} className="space-y-6">
+          <form
+            onSubmit={form.handleSubmit(handleRegister)}
+            className="space-y-6"
+          >
             <FormField
               control={form.control}
               name="email"
@@ -176,10 +189,12 @@ function RegisterPage() {
                 </FormItem>
               )}
             />
-            <Link to="/login" className="block text-center text-blue-500 hover:underline">
+            <Link
+              to="/login"
+              className="block text-center text-blue-500 hover:underline"
+            >
               Trở lại đăng nhập
             </Link>
-
             <button
               type="submit"
               className="w-full mt-4 bg-gradient-to-r from-blue-500 to-green-500 text-white py-3 rounded-lg hover:from-green-500 hover:to-blue-500 transition-all duration-300"
